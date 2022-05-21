@@ -36,7 +36,10 @@ import {
     GET_RESELLER_SUCCESS,
     GET_CUSTOMER_FAIL,
     GET_CUSTOMER_SUCCESS,
-    GET_CUSTOMER_REQUEST
+    GET_CUSTOMER_REQUEST,
+    FORGOT_PASSWORD_REQUEST,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_FAIL
 
 } from "../constants/adminconstants"
 import axios from "axios";
@@ -264,6 +267,25 @@ export const logoutAdmin = () => async (dispatch) => {
     }
 
 };
+
+export const forgotPassword = (email) => async (dispatch) => {
+    try {
+        dispatch({ type: FORGOT_PASSWORD_REQUEST });
+        console.log(email)
+        const config = { headers: { "Content-Type": "application/json" } };
+
+        const { data } = await axios.post(`/api/password/forgot`, email, config);
+
+        dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
+    } catch (error) {
+        dispatch({
+            type: FORGOT_PASSWORD_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+
+}
+
 export const clearErrors = () => async (dispatch) => {
     dispatch({
         type: CLEAR_ERRORS

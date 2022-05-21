@@ -24,6 +24,8 @@ import EditReseller from './components/Forms/edit reseller form/edirresellerfomr
 import EditCustomer from './components/Forms/edit customer/editcustomer';
 import { ResellerProfile } from './components/Reseller Profile/resellerProfile';
 import { CustomerProfile } from './components/Customer Profile/customerProfile';
+import { ForgotPassword } from "./components/Forgot Password/ForgotPassword"
+import { ResetPassword } from "./components/Forgot Password/ResetPassword"
 function App({ history }) {
   const dispatch = useDispatch();
   const { admin, isAuthenticatedAdmin, loadingAdmin, role } = useSelector(state => state.admin);
@@ -57,6 +59,10 @@ function App({ history }) {
         <Route exact path='/editresellerform/:id' component={(isAuthenticatedAdmin === true) && EditReseller} />
         <Route exact path='/editcustomer' component={(isAuthenticatedAdmin === true) && Allcustomer} />
         <Route exact path='/editcustomerform/:id' component={(isAuthenticatedAdmin === true) && EditCustomer} />
+
+        <Route exact path="/password/forgot" component={ForgotPassword} />
+
+        <Route exact path="/password/reset/:token" component={ResetPassword} />
       </Switch>
       <ToastContainer />
     </>)

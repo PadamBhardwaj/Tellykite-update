@@ -26,13 +26,13 @@ function Login({ history }) {
     }
     const dispatch = useDispatch();
     const { admin, isAuthenticatedAdmin, role, loadingAdmin } = useSelector(state => state.admin);
-    const { reseller, isAuthenticatedReseller,  } = useSelector(state => state.reseller);
+    const { reseller, isAuthenticatedReseller, } = useSelector(state => state.reseller);
     const { customer, isAuthenticatedCustomer } = useSelector(state => state.customer);
-    
-    
-  let errorAdmin = useSelector(state => state.admin.error);
-  let errorReseller = useSelector(state => state.reseller.error);
-  let errorCustomer = useSelector(state => state.customer.error);
+
+
+    let errorAdmin = useSelector(state => state.admin.error);
+    let errorReseller = useSelector(state => state.reseller.error);
+    let errorCustomer = useSelector(state => state.customer.error);
 
     useEffect(() => {
         dispatch(getTopResellers());
@@ -54,17 +54,17 @@ function Login({ history }) {
         }
     }, [isAuthenticatedAdmin, isAuthenticatedCustomer, isAuthenticatedReseller, history, admin, reseller, customer, errorAdmin, dispatch, clearErrors])
 
-    useEffect(()=>{
-        if(isAuthenticatedAdmin || isAuthenticatedCustomer || isAuthenticatedReseller){
+    useEffect(() => {
+        if (isAuthenticatedAdmin || isAuthenticatedCustomer || isAuthenticatedReseller) {
             toast("Login Successful")
         }
-    },[isAuthenticatedAdmin,isAuthenticatedCustomer,isAuthenticatedReseller])
+    }, [isAuthenticatedAdmin, isAuthenticatedCustomer, isAuthenticatedReseller])
 
-    useEffect(()=>{
-        if(errorAdmin && errorCustomer && errorReseller){
+    useEffect(() => {
+        if (errorAdmin && errorCustomer && errorReseller) {
             toast("Try Again")
         }
-    },[errorAdmin,errorCustomer,errorReseller])
+    }, [errorAdmin, errorCustomer, errorReseller])
     const handleClick = async (e) => {
         e.preventDefault();
         if (!val.email || !val.password) {
@@ -76,15 +76,17 @@ function Login({ history }) {
         dispatch(customerLogin(val.email, val.password));
 
     }
-
+    function handleForgot() {
+        history.push("/password/forgot")
+    }
 
 
     return (<>
-    <div className={Styles.LoginpageContainer}>
-        <div className={Styles.InputBox}>
-            <div className={Styles.logoContainer}>
-                <img className={Styles.logo} src={logo}/>
-            </div>
+        <div className={Styles.LoginpageContainer}>
+            <div className={Styles.InputBox}>
+                <div className={Styles.logoContainer}>
+                    <img className={Styles.logo} src={logo} />
+                </div>
                 <h1 className={Styles.Heading}>
                     Login
                 </h1>
@@ -97,7 +99,7 @@ function Login({ history }) {
                     <input className={Styles.Input} type="password" autoComplete="true" placeholder="Password" name="password" value={val.password} onChange={handleChange} />
 
                     <div className={Styles.links}>
-                        <p>Forgot Password?</p>
+                        <button type="submit" onClick={handleForgot}>Forgot Password?</button>
 
                         <p>Don't have Credentials?</p>
                     </div>
@@ -106,10 +108,10 @@ function Login({ history }) {
 
 
                 </form>
-        </div>
-        <div className={Styles.Image}>
+            </div>
+            <div className={Styles.Image}>
 
-        </div>
+            </div>
         </div>
 
     </>)

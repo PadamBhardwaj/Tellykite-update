@@ -216,40 +216,116 @@ exports.logout = catchAsyncError(async (req, res, next) => {
 // Forgot Password
 exports.forgotPassword = catchAsyncError(async (req, res, next) => {
     const admin = await Admin.findOne({ email: req.body.email });
+    const customer = await Customer.findOne({ email: req.body.email });
+    const reseller = await Reseller.findOne({ email: req.body.email });
 
-    if (!admin) {
-        return next(new ErrorHandler("User not found", 404));
-    }
+    if (admin) {
+        // return next(new ErrorHandler("User not found", 404));
 
-    // Get ResetPassword Token
-    const resetToken = admin.getResetPasswordToken();
-
-    await admin.save({ validateBeforeSave: false });
-
-    const resetPasswordUrl = `${req.protocol}://${req.get(
-        "host"
-    )}/password/reset/${resetToken}`;
-
-    const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
-
-    try {
-        await sendEmail({
-            email: user.email,
-            subject: `TallyKite Password Recovery`,
-            message,
-        });
-
-        res.status(200).json({
-            success: true,
-            message: `Email sent to ${admin.email} successfully`,
-        });
-    } catch (error) {
-        admin.resetPasswordToken = undefined;
-        admin.resetPasswordExpire = undefined;
+        // Get ResetPassword Token
+        const resetToken = admin.getResetPasswordToken();
 
         await admin.save({ validateBeforeSave: false });
 
-        return next(new ErrorHandler(error.message, 500));
+        const resetPasswordUrl = `${req.protocol}://${req.get(
+            "host"
+        )}/password/reset/${resetToken}`;
+
+        const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
+
+        try {
+            await sendEmail({
+                email: admin.email,
+                subject: `TallyKite Password Recovery`,
+                message,
+            });
+
+            res.status(200).json({
+                success: true,
+                message: `Email sent to ${admin.email} successfully`,
+            });
+        } catch (error) {
+            admin.resetPasswordToken = undefined;
+            admin.resetPasswordExpire = undefined;
+
+            await admin.save({ validateBeforeSave: false });
+
+            return next(new ErrorHandler(error.message, 500));
+        }
+    }
+
+    else if (reseller) {
+        // return next(new ErrorHandler("User not found", 404));
+
+        // Get ResetPassword Token
+        const resetToken = reseller.getResetPasswordToken();
+
+        await reseller.save({ validateBeforeSave: false });
+
+        const resetPasswordUrl = `${req.protocol}://${req.get(
+            "host"
+        )}/password/reset/${resetToken}`;
+
+        const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
+
+        try {
+            await sendEmail({
+                email: reseller.email,
+                subject: `TallyKite Password Recovery`,
+                message,
+            });
+
+            res.status(200).json({
+                success: true,
+                message: `Email sent to ${reseller.email} successfully`,
+            });
+        } catch (error) {
+            reseller.resetPasswordToken = undefined;
+            reseller.resetPasswordExpire = undefined;
+
+            await reseller.save({ validateBeforeSave: false });
+
+            return next(new ErrorHandler(error.message, 500));
+        }
+    }
+
+    else if (customer) {
+        // return next(new ErrorHandler("User not found", 404));
+
+        // Get ResetPassword Token
+        const resetToken = customer.getResetPasswordToken();
+
+        await customer.save({ validateBeforeSave: false });
+
+        const resetPasswordUrl = `${req.protocol}://${req.get(
+            "host"
+        )}/password/reset/${resetToken}`;
+
+        const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
+
+        try {
+            await sendEmail({
+                email: customer.email,
+                subject: `TallyKite Password Recovery`,
+                message,
+            });
+
+            res.status(200).json({
+                success: true,
+                message: `Email sent to ${customer.email} successfully`,
+            });
+        } catch (error) {
+            customer.resetPasswordToken = undefined;
+            customer.resetPasswordExpire = undefined;
+
+            await customer.save({ validateBeforeSave: false });
+
+            return next(new ErrorHandler(error.message, 500));
+        }
+    }
+    else {
+        return next(new ErrorHandler("User not found", 404));
+
     }
 });
 

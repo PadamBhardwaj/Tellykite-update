@@ -2,7 +2,14 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { adminReducer } from "./reducers/adminreducer"
 import { resellersReducer } from "./reducers/adminreducer"
 import { customersReducer } from "./reducers/adminreducer"
-import { topResellersReducer, totalReducer, expiryReducer, editResellerReducer, editCustomerReducer } from "./reducers/adminreducer"
+import {
+    topResellersReducer,
+    totalReducer,
+    expiryReducer,
+    editResellerReducer,
+    editCustomerReducer,
+    forgotPasswordReducer
+} from "./reducers/adminreducer"
 import { customerReducer } from './reducers/customerreducer'
 import { resellerReducer } from "./reducers/resellerReducer"
 import thunk from "redux-thunk";
@@ -18,8 +25,8 @@ const reducer = combineReducers({
     total: totalReducer,
     expiry: expiryReducer,
     editReseller: editResellerReducer,
-    editCustomer: editCustomerReducer
-
+    editCustomer: editCustomerReducer,
+    forgotPassword: forgotPasswordReducer
 })
 
 let initialState = {
