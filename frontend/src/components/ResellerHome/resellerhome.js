@@ -42,6 +42,10 @@ export const Reseller = ({ history }) => {
         // console.log(isAuthenticatedAdmin);
         // history.push('/');
     }
+    function handleProfile() {
+        // dispatch(getReseller());
+        history.push('/resellerprofile')
+    }
     return (
         <>
 
@@ -51,6 +55,11 @@ export const Reseller = ({ history }) => {
             </div>
             <div className={Styles.Card} >
                 <div className={Styles.Title}>Reseller name: {reseller.username}</div>
+                <div className={Styles.profile}>
+                    <button onClick={handleProfile} className="btn btn-warning">
+                        Profile
+                    </button>
+                </div>
                 <div className={Styles.Link}>
                     <button onClick={handleClick} className="btn btn-primary">
                         <FontAwesomeIcon icon={faArrowRightFromBracket} className={Styles.Font} />
@@ -60,7 +69,7 @@ export const Reseller = ({ history }) => {
             </div>
             <div className={Styles.List}>
                 <h5>Customer:</h5>
-                {(!loading && customers) && <Customer customers={customers}/>}
+                {(!loading && customers) && <Customer customers={customers} />}
             </div>
             {/* <div className="card" style="width: 18rem;">
                 {/* <img class="card-img-top" src="..." alt="Card image cap"> */}

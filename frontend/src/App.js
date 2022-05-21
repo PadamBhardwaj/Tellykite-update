@@ -22,6 +22,8 @@ import { loadReseller } from './actions/reselleraction';
 import { loadCustomer } from './actions/customeraction';
 import EditReseller from './components/Forms/edit reseller form/edirresellerfomr';
 import EditCustomer from './components/Forms/edit customer/editcustomer';
+import { ResellerProfile } from './components/Reseller Profile/resellerProfile';
+import { CustomerProfile } from './components/Customer Profile/customerProfile';
 function App({ history }) {
   const dispatch = useDispatch();
   const { admin, isAuthenticatedAdmin, loadingAdmin, role } = useSelector(state => state.admin);
@@ -46,6 +48,8 @@ function App({ history }) {
         <Route exact path='/' component={Login} />
         <Route path="/admin" component={(isAuthenticatedAdmin === true) && Admin} />
         <Route exact path='/reseller' component={(isAuthenticatedReseller === true) && Reseller} />
+        <Route exact path='/resellerprofile' component={(isAuthenticatedReseller === true) && ResellerProfile} />
+        <Route exact path='/customerprofile' component={(isAuthenticatedCustomer === true) && CustomerProfile} />
         <Route exact path='/customer' component={(isAuthenticatedCustomer === true) && Customer} />
         <Route exact path='/createreseller' component={(isAuthenticatedAdmin === true) && ResellerCreate} />
         <Route exact path='/createcustomer' component={(isAuthenticatedAdmin === true) && CustomerCreate} />

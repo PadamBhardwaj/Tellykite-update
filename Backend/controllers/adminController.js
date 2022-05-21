@@ -126,7 +126,6 @@ exports.updateProfileReseller = catchAsyncError(async (req, res, next) => {
         success: true,
     });
 });
-
 // update Customer Profile
 exports.updateProfileCustomer = catchAsyncError(async (req, res, next) => {
     const newUserData = {

@@ -16,29 +16,32 @@ import {
     ADD_RESELLER_SUCCESS,
     ALL_CUSTOMERS_FAIL,
     ALL_CUSTOMERS_REQUEST,
-    ALL_CUSTOMERS_SUCCESS
+    ALL_CUSTOMERS_SUCCESS,
+    UPDATE_PASSWORD_FAIL,
+    UPDATE_PASSWORD_REQUEST,
+    UPDATE_PASSWORD_SUCCESS
 } from "../constants/resellerconstants";
 export const resellerReducer = (state = { reseller: {} }, action) => {
     switch (action.type) {
         case GET_ALL_RESELLER_REQUEST:
-            return{
+            return {
                 ...state,
-                loading:true,
+                loading: true,
             }
         case GET_ALL_RESELLER_SUCCESS:
-            return{
+            return {
                 ...state,
-                loading:false,
-                resellers:action.payload
+                loading: false,
+                resellers: action.payload
             }
 
         case GET_ALL_RESELLER_FAIL:
-            return{
+            return {
                 ...state,
-                loading:false,
-                error:action.payload
+                loading: false,
+                error: action.payload
             }
-            
+
         case RESELLER_REQUEST:
         case LOAD_RESELLER_REQUEST:
             return {
@@ -115,6 +118,23 @@ export const resellerReducer = (state = { reseller: {} }, action) => {
                 loading: false,
 
                 customers: action.payload
+            }
+        case UPDATE_PASSWORD_FAIL:
+            return {
+                ...state,
+                success: false,
+                loading: false
+            }
+        case UPDATE_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                success: true,
+                // reseller: action.payload,
+                loading: false
+            }
+        case UPDATE_PASSWORD_REQUEST:
+            return {
+                loading: true
             }
         default:
             return state;

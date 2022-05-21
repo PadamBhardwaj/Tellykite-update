@@ -16,7 +16,10 @@ import {
     ALL_CUSTOMERS_SUCCESS,
     GET_ALL_RESELLER_REQUEST,
     GET_ALL_RESELLER_SUCCESS,
-    GET_ALL_RESELLER_FAIL
+    GET_ALL_RESELLER_FAIL,
+    UPDATE_PASSWORD_REQUEST,
+    UPDATE_PASSWORD_SUCCESS,
+    UPDATE_PASSWORD_FAIL
 } from "../constants/resellerconstants"
 import axios from "axios";
 export const resellerLogin = (email, password) => async (dispatch) => {
@@ -34,23 +37,23 @@ export const resellerLogin = (email, password) => async (dispatch) => {
     }
 }
 
-export const getAllResellers  = () => async (dispatch) => {
-    try{
-        dispatch({type:GET_ALL_RESELLER_REQUEST});
+export const getAllResellers = () => async (dispatch) => {
+    try {
+        dispatch({ type: GET_ALL_RESELLER_REQUEST });
 
-        const {data} = await axios.get(`/api/resellers`)
+        const { data } = await axios.get(`/api/resellers`)
         console.log(data);
 
         dispatch({
-            type:GET_ALL_RESELLER_SUCCESS,
-            payload:data
+            type: GET_ALL_RESELLER_SUCCESS,
+            payload: data
         })
 
 
-    } catch(error){
+    } catch (error) {
         dispatch({
-            type:GET_ALL_RESELLER_FAIL,
-            payload:error
+            type: GET_ALL_RESELLER_FAIL,
+            payload: error
         })
     }
 }
@@ -104,7 +107,7 @@ export const createReseller = (reseller) => async (dispatch) => {
 
             },
         };
-        const { data } = await axios.post("/api/reseller/register", reseller, config);
+        const { data } = await axios.post(`/api/reseller/register`, reseller, config);
         dispatch({
             type: ADD_RESELLER_SUCCESS, payload: data
         });
@@ -114,6 +117,29 @@ export const createReseller = (reseller) => async (dispatch) => {
             payload: error.response.data.message
         })
 
+    }
+}
+export const updatePassword = (newPassword) => async (dispatch) => {
+    try {
+        dispatch({
+            type: UPDATE_PASSWORD_REQUEST,
+        });
+        const config = {
+            headers: {
+                "content-Type": "application/json",
+
+            },
+        };
+        const { data } = await axios.post(`/api/reseller/updatepassword`, newPassword, config);
+        dispatch({
+            type: UPDATE_PASSWORD_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: UPDATE_PASSWORD_FAIL,
+            payload: error.response.data.message
+        })
     }
 }
 export const clearErrors = () => async (dispatch) => {

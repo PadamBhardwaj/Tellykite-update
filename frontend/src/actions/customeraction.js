@@ -10,7 +10,10 @@ import {
     CUSTOMER_SUCCESS,
     ADD_CUSTOMER_FAIL,
     ADD_CUSTOMER_REQUEST,
-    ADD_CUSTOMER_SUCCESS
+    ADD_CUSTOMER_SUCCESS,
+    UPDATE_PASSWORD_FAIL,
+    UPDATE_PASSWORD_REQUEST,
+    UPDATE_PASSWORD_SUCCESS
 
 }
     from "../constants/customerconstants"
@@ -71,6 +74,32 @@ export const createCustomer = (customer) => async (dispatch) => {
             payload: error.response.data.message
         })
 
+    }
+}
+
+
+
+export const updatePassword = (newPassword) => async (dispatch) => {
+    try {
+        dispatch({
+            type: UPDATE_PASSWORD_REQUEST,
+        });
+        const config = {
+            headers: {
+                "content-Type": "application/json",
+
+            },
+        };
+        const { data } = await axios.post(`/api/customer/updatepassword`, newPassword, config);
+        dispatch({
+            type: UPDATE_PASSWORD_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: UPDATE_PASSWORD_FAIL,
+            payload: error.response.data.message
+        })
     }
 }
 

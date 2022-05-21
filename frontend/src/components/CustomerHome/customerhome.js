@@ -37,10 +37,19 @@ export const Customer = ({ history }) => {
         // console.log(isAuthenticatedAdmin);
         // history.push('/');
     }
+    function handleProfile() {
+        // dispatch(getReseller());
+        history.push('/customerprofile')
+    }
     return (
         <>
             <div className={Styles.Card}>
                 <div className={Styles.Title}>Direct Customer name:  {customer.username}</div>
+                <div className={Styles.profile}>
+                    <button onClick={handleProfile} className="btn btn-warning">
+                        Profile
+                    </button>
+                </div>
                 <div className={Styles.Link}>
                     <button onClick={handleClick} className="btn btn-primary">
                         <FontAwesomeIcon icon={faArrowRightFromBracket} className={Styles.Font} />

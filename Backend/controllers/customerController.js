@@ -12,49 +12,49 @@ const sendEmail = require("../utils/sendEmail");
 
 // Register customer
 exports.registercustomer = catchAsyncError(async (req, res, next) => {
-    let { name, email, password, username, Telly_version, company, location, plan_type, address, cellno, telephone, Expiry, purchasedate,reseller_id, TellyAccounts } = req.body;
+    let { name, email, password, username, Telly_version, company, location, plan_type, address, cellno, telephone, Expiry, purchasedate, reseller_id, TellyAccounts } = req.body;
     Expiry = new Date(Expiry);
     console.log(TellyAccounts)
-    try{
-    if(reseller_id){
-        var customer = await Customer.create({
-            name,
-            email,
-            password,
-            username,
-            Telly_version,
-            location,
-            plan_type,
-            company,
-            address,
-            mode: "reseller",
-            Expiry,
-            reseller_id,
-            TellyAccounts,
-            purchasedate
-        })
+    try {
+        if (reseller_id) {
+            var customer = await Customer.create({
+                name,
+                email,
+                password,
+                username,
+                Telly_version,
+                location,
+                plan_type,
+                company,
+                address,
+                mode: "reseller",
+                Expiry,
+                reseller_id,
+                TellyAccounts,
+                purchasedate
+            })
 
-    }else{
-    var customer = await Customer.create({
-        name,
-        email,
-        password,
-        username,
-        Telly_version,
-        location,
-        plan_type,
-        company,
-        address,
-        mode: "direct",
-        Expiry,
-        TellyAccounts,
-        purchasedate
-    })
-}
-}
-catch(err){
-    console.log(err)
-}
+        } else {
+            var customer = await Customer.create({
+                name,
+                email,
+                password,
+                username,
+                Telly_version,
+                location,
+                plan_type,
+                company,
+                address,
+                mode: "direct",
+                Expiry,
+                TellyAccounts,
+                purchasedate
+            })
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }
 
 
     // sendToken(customer, 200, res);
@@ -224,6 +224,25 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     customer.password = req.body.password;
     customer.resetPasswordToken = undefined;
     customer.resetPasswordExpire = undefined;
+
+    await customer.save();
+
+    sendToken(customer, 200, res);
+});
+exports.updatePasswordByCustomer = catchAsyncError(async (req, res, next) => {
+    const customer = await Customer.findById(req.customer.id).select("+password");
+    // console.log(customer)
+    // const isPasswordMatched = await reseller.comparePassword(req.body.oldPassword);
+
+    // if (!isPasswordMatched) {
+    //     return next(new ErrorHandler("Old password is incorrect", 400));
+    // }
+
+    // if (req.body.newPassword !== req.body.confirmPassword) {
+    //     return next(new ErrorHandler("password does not match", 400));
+    // }
+
+    customer.password = req.body.newPassword;
 
     await customer.save();
 

@@ -1,0 +1,67 @@
+.Head {
+    /* background-color: aqua; */
+    text-decoration: underline;
+    /* text-align: center; */
+    color: #fff;
+    border-radius: 10px;
+    /* width: 70%; */
+    background-color: #4341d1;
+    margin: 1%;
+    padding: 1%;
+}
+
+
+/* .Head h1 { */
+
+/* text-align: center; */
+/* position: relative; */
+/* margin: 0 auto; */
+/* display: inline-block; */
+
+
+
+.Head button {
+    margin: 2%;
+}
+
+h4 {
+    width: 70%;
+    border-radius: 10px;
+    background-color: #71e6d8;
+    padding: 1%;
+    /* position: relative; */
+    margin: 1% auto;
+
+    /* align-self: center; */
+    /* max-width: max-content; */
+
+}
+
+.Details {
+    background-color: antiquewhite;
+    display: inline-block;
+    width: 70%;
+    align-items: center;
+    margin: 1%;
+    border-radius: 20px;
+}
+
+.Password {
+    /* display: inline-block; */
+    background-color: #4341d1;
+    background-color: azure;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 3% 7% 0 0;
+    padding: 1%;
+    float: right;
+}
+
+h6 {
+    text-decoration: dotted;
+
+}
+
+.Btn button {
+    margin: 10%;
+}

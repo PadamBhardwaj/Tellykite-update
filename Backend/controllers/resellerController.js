@@ -28,11 +28,11 @@ exports.registerreseller = catchAsyncError(async (req, res, next) => {
 
 // get all resellers for dropdown
 
-exports.getAllReseller = catchAsyncError(async (req,res,next)=>{
+exports.getAllReseller = catchAsyncError(async (req, res, next) => {
     const resellers = await Reseller.find();
 
     res.status(200).json({
-        success:true,
+        success: true,
         resellers
     })
 })
@@ -181,7 +181,7 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 });
 
 
-// update Reseller password
+// update Reseller password by Admin side
 exports.updatePassword = catchAsyncError(async (req, res, next) => {
     const reseller = await Reseller.findById(req.reseller.id).select("+password");
 
@@ -194,6 +194,26 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
     if (req.body.newPassword !== req.body.confirmPassword) {
         return next(new ErrorHandler("password does not match", 400));
     }
+
+    reseller.password = req.body.newPassword;
+
+    await reseller.save();
+
+    sendToken(reseller, 200, res);
+});
+// update Reseller password of Logged in Reseller
+exports.updatePasswordByReseller = catchAsyncError(async (req, res, next) => {
+    const reseller = await Reseller.findById(req.reseller.id).select("+password");
+    console.log(reseller)
+    // const isPasswordMatched = await reseller.comparePassword(req.body.oldPassword);
+
+    // if (!isPasswordMatched) {
+    //     return next(new ErrorHandler("Old password is incorrect", 400));
+    // }
+
+    // if (req.body.newPassword !== req.body.confirmPassword) {
+    //     return next(new ErrorHandler("password does not match", 400));
+    // }
 
     reseller.password = req.body.newPassword;
 

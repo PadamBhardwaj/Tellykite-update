@@ -10,6 +10,9 @@ import {
     ADD_CUSTOMER_FAIL,
     ADD_CUSTOMER_REQUEST,
     ADD_CUSTOMER_SUCCESS,
+    UPDATE_PASSWORD_FAIL,
+    UPDATE_PASSWORD_REQUEST,
+    UPDATE_PASSWORD_SUCCESS,
     CLEAR_ERRORS
 } from "../constants/customerconstants";
 export const customerReducer = (state = { customer: {} }, action) => {
@@ -72,6 +75,23 @@ export const customerReducer = (state = { customer: {} }, action) => {
                 ...state,
                 loadingCustomer: false,
                 error: action.payload
+            }
+        case UPDATE_PASSWORD_FAIL:
+            return {
+                ...state,
+                success: false,
+                loading: false
+            }
+        case UPDATE_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                success: true,
+                // reseller: action.payload,
+                loading: false
+            }
+        case UPDATE_PASSWORD_REQUEST:
+            return {
+                loading: true
             }
         default:
             return state;
