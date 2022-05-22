@@ -92,7 +92,7 @@ export const Admin = ({ history }) => {
                                 topResellers && topResellers.map((item, index) => (
                                     <div key={item._id}>
                                         <h6 className={Styles.Topresellername}>
-                                            {`${index + 1}.  ${item.username} : ${item.customerCount}`}
+                                            {`${index + 1}.  ${item.username}`}
                                         </h6>
                                     </div>
                                 ))
