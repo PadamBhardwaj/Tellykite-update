@@ -3,7 +3,7 @@ import Styles from "./customercreate.module.css"
 // import Form from '../form'
 import { useDispatch, useSelector } from "react-redux"
 import { createCustomer } from "../../../actions/customeraction"
-import { getResellers } from '../../../actions/adminaction'
+import { getResellers, getTopResellers } from '../../../actions/adminaction'
 import Select from 'react-select'
 
 export const CustomerCreate = ({ history }) => {
@@ -92,6 +92,8 @@ export const CustomerCreate = ({ history }) => {
         e.preventDefault();
 
         dispatch(createCustomer(val));
+        dispatch(getTopResellers());
+
         // alert.success("Reseller Created")
         history.push("/admin");
 
