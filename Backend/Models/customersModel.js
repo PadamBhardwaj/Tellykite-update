@@ -55,7 +55,9 @@ const customerSchema = new mongoose.Schema({
         tellyUsername: String,
         tellyPassword: String,
         tellySerial: Number
-    }]
+    }],
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
 });
 customerSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {

@@ -3,7 +3,7 @@
 const Admin = require("../Models/adminModel")
 const Customer = require("../Models/customersModel")
 const Reseller = require("../Models/resellerModel")
-
+const getResetPasswordToken = require("../Models/adminModel")
 const ErrorHandler = require("../utils/errorHandler")
 const catchAsyncError = require("../middleware/catchAsyncError");
 const sendToken = require("../utils/jwtToken");
