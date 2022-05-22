@@ -19,6 +19,12 @@ const EditReseller = ({ history }) => {
             console.log("reseller update form returning")
             history.push("/");
         }
+        if (!loading) {
+            if (id !== editReseller._id) {
+                dispatch(getReseller(idObject));
+
+            }
+        }
     }, [loading]);
     let initialValue = {
         username: "",
@@ -28,20 +34,32 @@ const EditReseller = ({ history }) => {
         address: "",
         website: "",
         location: "",
-        cellno: "",
-        telephone: "",
+        cellno: null,
+        telephone: null,
         id: id
     }
+    const [val, setVal] = useState(initialValue)
     function handleClick(e) {
         e.preventDefault();
+        if (val.email == "") {
+            setVal({ ...val, email: editReseller.email })
+            console.log("email same")
+        }
+        if (val.username == "") {
+            setVal({ ...val, username: editReseller.username })
+        }
+        if (val.password == "") {
+            setVal({ ...val, password: editReseller.password })
+        }
         console.log(val)
-        dispatch(updateReseller(val))
+        dispatch(updateReseller(val));
+        dispatch(getReseller(idObject));
         history.push("/admin");
     }
+
     const handleChange = (e) => {
         setVal({ ...val, [e.target.name]: e.target.value })
     }
-    const [val, setVal] = useState(initialValue)
     // console.log(val == initialValue)
     if (!loading) {
         // if (val === initialValue) {
@@ -61,8 +79,8 @@ const EditReseller = ({ history }) => {
                         <input onChange={handleChange} name="address" defaultValue={editReseller.address} placeholder='Address' className={Styles.Input} />
                         <input onChange={handleChange} name="website" defaultValue={editReseller.website} placeholder='Website' className={Styles.Input} />
                         <input onChange={handleChange} name="location" defaultValue={editReseller.location} placeholder='Location' className={Styles.Input} />
-                        <input onChange={handleChange} name="cellno" defaultValue={editReseller.cellno} placeholder='Cell No' className={Styles.Input} />
-                        <input onChange={handleChange} name="telephone" defaultValue={editReseller.telephone} placeholder='Telephone Number' className={Styles.Input} />
+                        <input onChange={handleChange} name="cellno" defaultValue={editReseller.cell_No} placeholder='Cell No' className={Styles.Input} type='number' />
+                        <input onChange={handleChange} name="telephone" defaultValue={editReseller.telephoneNumber} placeholder='Telephone Number' className={Styles.Input} type='number' />
                         <button type="submit" onClick={handleClick} className={Styles.Button} >Submit</button>
                     </form>
                 </div>

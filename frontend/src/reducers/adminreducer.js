@@ -237,6 +237,7 @@ export const customersReducer = (state = { customers: {} }, action) => {
 export const editResellerReducer = (state = { editReseller: {} }, action) => {
     switch (action.type) {
         case GET_RESELLER_FAIL:
+        case UPDATE_RESELLER_FAIL:
             return {
                 loading: false,
                 editReseller: null,

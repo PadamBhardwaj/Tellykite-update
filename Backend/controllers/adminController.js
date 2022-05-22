@@ -113,7 +113,8 @@ exports.updateProfileReseller = catchAsyncError(async (req, res, next) => {
         website: req.body.website,
         location: req.body.location,
         telephoneNumber: req.body.telephone,
-        cell_no: req.body.cellno
+        address: req.body.address,
+        cell_No: req.body.cellno
     };
 
     const reseller = await Reseller.findByIdAndUpdate(req.body.id, newUserData, {

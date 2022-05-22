@@ -37,6 +37,7 @@ const resellerSchema = new mongoose.Schema({
     telephoneNumber: Number,
     customerCount: Number,
     TargetCustomer: Number,
+    address: String,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 
