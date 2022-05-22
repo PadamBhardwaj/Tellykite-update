@@ -51,9 +51,9 @@ export const CustomerProfile = ({ history }) => {
         <div className={Styles.Details}>
             <h4>Name: {customer.username}</h4>
             <h4>Email: {customer.email}</h4>
-            {/* <h4>Customer Count: {customer.customerCount}</h4> */}
+
             <h4>Website: {customer.website}</h4>
-            <h4>Cell number: {customer.cell_no}</h4>
+            <h4>Cell number: {customer.cell_No}</h4>
             <h4>location: {customer.location}</h4>
         </div>
 

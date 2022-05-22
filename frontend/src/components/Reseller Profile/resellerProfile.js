@@ -53,7 +53,7 @@ export const ResellerProfile = ({ history }) => {
             <h4>Email: {reseller.email}</h4>
             <h4>Customer Count: {reseller.customerCount}</h4>
             <h4>Website: {reseller.website}</h4>
-            <h4>Cell number: {reseller.cell_no}</h4>
+            <h4>Cell number: {reseller.cell_No}</h4>
             <h4>location: {reseller.location}</h4>
         </div>
 
