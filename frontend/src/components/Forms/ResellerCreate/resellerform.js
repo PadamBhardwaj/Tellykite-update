@@ -25,7 +25,7 @@ export const ResellerCreate = ({ history }) => {
         location: "",
         cell_No: null,
         telephoneNumber: null,
-        customerCount: 0
+        targetCustomer: 0
     }
     const [val, setVal] = useState(initialValue)
 
@@ -56,7 +56,7 @@ export const ResellerCreate = ({ history }) => {
                     <input onChange={handleChange} name="location" value={val.location} placeholder='Location' className={Styles.Input} />
                     <input onChange={handleChange} name="cellno" value={val.cellno} placeholder='Cell No' className={Styles.Input} />
                     <input onChange={handleChange} name="telephone" value={val.telephone} placeholder='Telephone Number' className={Styles.Input} />
-                    <input onChange={handleChange} name="customerCount" value={val.customerCount} placeholder='No. of Customers' className={Styles.Input} />
+                    <input onChange={handleChange} name="targetCustomer" value={val.targetCustomer} placeholder='targetCustomer' className={Styles.Input} />
                     <button type="submit" onClick={handleClick} className={Styles.Button} >Submit</button>
                 </form>
             </div>

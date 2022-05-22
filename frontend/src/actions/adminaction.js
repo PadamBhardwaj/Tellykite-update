@@ -42,7 +42,13 @@ import {
     FORGOT_PASSWORD_FAIL,
     RESET_PASSWORD_FAIL,
     RESET_PASSWORD_REQUEST,
-    RESET_PASSWORD_SUCCESS
+    RESET_PASSWORD_SUCCESS,
+    DELETE_CUSTOMER_FAIL,
+    DELETE_CUSTOMER_REQUEST,
+    DELETE_CUSTOMER_SUCCESS,
+    DELETE_RESELLER_FAIL,
+    DELETE_RESELLER_REQUEST,
+    DELETE_RESELLER_SUCCESS
 
 } from "../constants/adminconstants"
 import axios from "axios";
@@ -313,7 +319,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
     }
 };
 
-
+// export const deleteReseller=()
 export const clearErrors = () => async (dispatch) => {
     dispatch({
         type: CLEAR_ERRORS

@@ -33,7 +33,10 @@ exports.registercustomer = catchAsyncError(async (req, res, next) => {
                 TellyAccounts,
                 purchasedate
             })
-
+            const reseller = await Reseller.findOneAndUpdate({ _id: reseller_id }, {
+                $inc: { 'customerCount': 1 }
+            }
+            );
         } else {
             var customer = await Customer.create({
                 name,

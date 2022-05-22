@@ -85,12 +85,12 @@ export const CustomerCreate = ({ history }) => {
 
     const handleChange = (e) => {
         setVal({ ...val, [e.target.name]: e.target.value })
-        console.log(val)
+        // console.log(val)
     }
 
     function handleClick(e) {
         e.preventDefault();
-        console.log(val)
+
         dispatch(createCustomer(val));
         // alert.success("Reseller Created")
         history.push("/admin");
@@ -98,7 +98,7 @@ export const CustomerCreate = ({ history }) => {
     }
 
     const resellerSelectHandler = (value) => {
-        console.log(value)
+        // console.log(value)
         setVal({ ...val, reseller_id: value.id })
     }
 

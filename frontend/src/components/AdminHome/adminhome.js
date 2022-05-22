@@ -33,7 +33,7 @@ export const Admin = ({ history }) => {
         }
         dispatch(getResellers());
         dispatch(getCustomers());
-        
+
     }, [isAuthenticatedAdmin, getCustomers, getResellers, dispatch]);
 
 
@@ -43,7 +43,7 @@ export const Admin = ({ history }) => {
     const [val, setVal] = useState(initialval);
     const handleChange = (e) => {
         setVal({ ...val, [e.target.name]: e.target.value })
-        
+
     }
     function handleExpiry(e) {
         console.log(`User clicked in Value Day`)
@@ -62,46 +62,46 @@ export const Admin = ({ history }) => {
     const n = nonDirectCustomerCount
     return (
         <>
-        <div className={Styles.AdminContainer}>
-        <AdminSidebar/>
-        <div className={Styles.VContainer}>
-        <StatBar r={r} c={c} d={d} n={n}/>
-        <div className={Styles.HContainer}>
-                <div className={Styles.Renews}>
+            <div className={Styles.AdminContainer}>
+                <AdminSidebar />
+                <div className={Styles.VContainer}>
+                    <StatBar r={r} c={c} d={d} n={n} />
+                    <div className={Styles.HContainer}>
+                        <div className={Styles.Renews}>
 
-                    <div className={Styles.RenewFilter}>
-                    <p>Renewal in:</p>
-                    <div>
-                    <input placeholder='Enter Renewals days' name='day' value={val.day} onChange={handleChange} />
-                    <button type='submit' onClick={handleExpiry}>Find</button>
-                    </div>
-                    </div>
-                    <div>
-                        {/* <h3>Customers:</h3> */}
-                        
-                        {(!loading && expiringCustomers) &&
-                            <ExpiringCustomer expiringCustomers={expiringCustomers}  />
-                        }  
-                    </div>
-                </div>
-                            
-                <div className={Styles.Topreseller}>
-                            <h6 className={Styles.TopresellerHeading}>Top Resellers</h6>
-                            <br/>
-                        {
-                            topResellers && topResellers.map((item,index)=>(
-                                <div key={item._id}>
-                                   <h6 className={Styles.Topresellername}>
-                                      {`${index+1}.  ${item.username}`}
-                                   </h6>
+                            <div className={Styles.RenewFilter}>
+                                <p>Renewal in:</p>
+                                <div>
+                                    <input placeholder='Enter Renewals days' name='day' value={val.day} onChange={handleChange} />
+                                    <button type='submit' onClick={handleExpiry}>Find</button>
                                 </div>
-                            ))
-                        }
-                </div>
+                            </div>
+                            <div>
+                                {/* <h3>Customers:</h3> */}
 
-            </div>
-        
-            </div>
+                                {(!loading && expiringCustomers) &&
+                                    <ExpiringCustomer expiringCustomers={expiringCustomers} />
+                                }
+                            </div>
+                        </div>
+
+                        <div className={Styles.Topreseller}>
+                            <h6 className={Styles.TopresellerHeading}>Top Resellers</h6>
+                            <br />
+                            {
+                                topResellers && topResellers.map((item, index) => (
+                                    <div key={item._id}>
+                                        <h6 className={Styles.Topresellername}>
+                                            {`${index + 1}.  ${item.username} : ${item.customerCount}`}
+                                        </h6>
+                                    </div>
+                                ))
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
 
         </>
