@@ -53,7 +53,7 @@ const EditReseller = ({ history }) => {
         }
         console.log(val)
         dispatch(updateReseller(val));
-        dispatch(getReseller(idObject));
+        // dispatch(getReseller(idObject));
         history.push("/admin");
     }
 

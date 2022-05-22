@@ -135,8 +135,9 @@ exports.updateProfileCustomer = catchAsyncError(async (req, res, next) => {
         username: req.body.username,
         company: req.body.company,
         website: req.body.website,
+        address: req.body.address,
         location: req.body.location,
-        telephoneNumber: req.body.telephoneNumber,
+        telephoneNumber: req.body.telephone,
         cell_No: req.body.cellno
     };
 

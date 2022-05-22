@@ -20,6 +20,12 @@ const EditCustomer = ({ history }) => {
             console.log("customer update form returning")
             history.push("/");
         }
+        if (!loading) {
+            if (id !== editCustomer._id) {
+                dispatch(getCustomer(idObject));
+
+            }
+        }
     }, [loading]);
     let initialValue = {
         username: "",
@@ -29,20 +35,36 @@ const EditCustomer = ({ history }) => {
         address: "",
         website: "",
         location: "",
-        cellno: "",
-        telephone: "",
+        cellno: null,
+        telephone: null,
         id: id
     }
     function handleClick(e) {
         e.preventDefault();
         // console.log(val)
+        if (val.email == "") {
+            setVal({ ...val, email: editCustomer.email })
+            console.log("email same")
+        }
+        if (val.username == "") {
+            setVal({ ...val, username: editCustomer.username })
+        }
+        if (val.password == "") {
+            setVal({ ...val, password: editCustomer.password })
+        }
+        console.log(val)
         dispatch(updateCustomer(val))
+        // dispatch(getCustomer(idObject))
         history.push("/admin");
     }
     const handleChange = (e) => {
         setVal({ ...val, [e.target.name]: e.target.value })
     }
     const [val, setVal] = useState(initialValue)
+    // function handleBack() {
+    //     dispatch(getCustomer(idObject));
+    //     history.goBack();
+    // }
     // console.log(val == initialValue)
     if (!loading) {
         // if (val === initialValue) {
@@ -53,6 +75,9 @@ const EditCustomer = ({ history }) => {
         // }
         return (
             <>
+                {/* <div>
+                    <button className='btn btn-dark' onClick={handleBack}>Back</button>
+                </div> */}
                 <div className={Styles.Container}>
                     <form className={Styles.Form}>
                         <input name="username" defaultValue={editCustomer.username} onChange={handleChange} placeholder='Username' className={Styles.Input} />
@@ -62,8 +87,8 @@ const EditCustomer = ({ history }) => {
                         <input onChange={handleChange} name="address" defaultValue={editCustomer.address} placeholder='Address' className={Styles.Input} />
                         <input onChange={handleChange} name="website" defaultValue={editCustomer.website} placeholder='Website' className={Styles.Input} />
                         <input onChange={handleChange} name="location" defaultValue={editCustomer.location} placeholder='Location' className={Styles.Input} />
-                        <input onChange={handleChange} name="cellno" defaultValue={editCustomer.cellno} placeholder='Cell No' className={Styles.Input} />
-                        <input onChange={handleChange} name="telephone" defaultValue={editCustomer.telephone} placeholder='Telephone Number' className={Styles.Input} />
+                        <input onChange={handleChange} name="cellno" defaultValue={editCustomer.cell_No} placeholder='Cell No' className={Styles.Input} type='number' />
+                        <input onChange={handleChange} name="telephone" defaultValue={editCustomer.telephoneNumber} placeholder='Telephone Number' className={Styles.Input} type='number' />
                         <button type="submit" onClick={handleClick} className={Styles.Button} >Submit</button>
                     </form>
                 </div>
