@@ -23,8 +23,8 @@ export const ResellerCreate = ({ history }) => {
         address: "",
         website: "",
         location: "",
-        cell_No: "",
-        telephoneNumber: "",
+        cell_No: null,
+        telephoneNumber: null,
         customerCount: 0
     }
     const [val, setVal] = useState(initialValue)
