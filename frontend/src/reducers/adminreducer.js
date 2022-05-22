@@ -40,7 +40,10 @@ import {
     GET_CUSTOMER_REQUEST,
     FORGOT_PASSWORD_FAIL,
     FORGOT_PASSWORD_REQUEST,
-    FORGOT_PASSWORD_SUCCESS
+    FORGOT_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAIL,
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_SUCCESS
 } from "../constants/adminconstants";
 export const adminReducer = (state = { admin: {} }, action) => {
     switch (action.type) {
@@ -278,13 +281,14 @@ export const editCustomerReducer = (state = { editCustomer: {} }, action) => {
 export const forgotPasswordReducer = (state = {}, action) => {
     switch (action.type) {
         case FORGOT_PASSWORD_REQUEST:
-            // case RESET_PASSWORD_REQUEST:
+        case RESET_PASSWORD_REQUEST:
             return {
                 ...state,
                 loading: true,
                 error: null,
             };
         case FORGOT_PASSWORD_SUCCESS:
+            // case RESET_PASSWORD_REQUEST:
             return {
                 ...state,
                 loading: false,
@@ -299,13 +303,20 @@ export const forgotPasswordReducer = (state = {}, action) => {
         //     };
 
         case FORGOT_PASSWORD_FAIL:
+        case RESET_PASSWORD_FAIL:
             // case RESET_PASSWORD_FAIL:
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
             };
+        case RESET_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: action.payload,
 
+            };
         case CLEAR_ERRORS:
             return {
                 ...state,

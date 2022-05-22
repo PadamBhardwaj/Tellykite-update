@@ -227,9 +227,8 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
         await admin.save({ validateBeforeSave: false });
 
-        const resetPasswordUrl = `${req.protocol}://${req.get(
-            "host"
-        )}/password/reset/${resetToken}`;
+        const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
+
 
         const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
@@ -262,9 +261,10 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
         await reseller.save({ validateBeforeSave: false });
 
-        const resetPasswordUrl = `${req.protocol}://${req.get(
-            "host"
-        )}/password/reset/${resetToken}`;
+        // const resetPasswordUrl = `${req.protocol}://${req.get(
+        //     "host"
+        // )}/password/reset/${resetToken}`;
+        const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
         const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
@@ -296,17 +296,15 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
         const resetToken = customer.getResetPasswordToken();
 
         await customer.save({ validateBeforeSave: false });
+        const resetPasswordUrl = `${process.env.FRONTEND_URL}/api/password/reset/${resetToken}`;
 
-        const resetPasswordUrl = `${req.protocol}://${req.get(
-            "host"
-        )}/password/reset/${resetToken}`;
 
         const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
         try {
             await sendEmail({
                 email: customer.email,
-                subject: `TallyKite Password Recovery`,
+                subject: `TallyKite  Password Recovery`,
                 message,
             });
 
@@ -337,13 +335,86 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
         .createHash("sha256")
         .update(req.params.token)
         .digest("hex");
-
+    // console.log(resetPasswordToken)
     const admin = await Admin.findOne({
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() },
     });
+    const reseller = await Reseller.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() },
+    }).select("+password");
+    const customer = await Customer.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() },
+    });
+    if (admin) {
+        // if (!admin) {
+        //     return next(
+        //         new ErrorHandler(
+        //             "Reset Password Token is invalid or has been expired",
+        //             400
+        //         )
+        //     );
+        // }
 
-    if (!admin) {
+        if (req.body.password !== req.body.confirmPassword) {
+            return next(new ErrorHandler("Password does not match", 400));
+        }
+
+        admin.password = req.body.password;
+        admin.resetPasswordToken = undefined;
+        admin.resetPasswordExpire = undefined;
+
+        await admin.save();
+
+        console.log(admin)
+        console.log(admin.password)
+        console.log(req.body.password)
+        // sendToken(admin, 200, res);
+    }
+    else if (reseller) {
+        if (req.body.password !== req.body.confirmPassword) {
+            return next(new ErrorHandler("Password does not match", 400));
+        }
+
+        reseller.password = req.body.password;
+        reseller.resetPasswordToken = undefined;
+        reseller.resetPasswordExpire = undefined;
+
+        await reseller.save();
+        console.log(reseller)
+        console.log(reseller.password)
+        console.log(req.body.password)
+
+        // sendToken(reseller, 200, res);
+    }
+    else if (customer) {
+        // if (!customer) {
+        //     return next(
+        //         new ErrorHandler(
+        //             "Reset Password Token is invalid or has been expired",
+        //             400
+        //         )
+        //     );
+        // }
+
+        if (req.body.password !== req.body.confirmPassword) {
+            return next(new ErrorHandler("Password does not match", 400));
+        }
+
+        customer.password = req.body.password;
+        customer.resetPasswordToken = undefined;
+        customer.resetPasswordExpire = undefined;
+        console.log(customer)
+        console.log(customer.password)
+        console.log(req.body.password)
+
+        await customer.save();
+
+        // sendToken(customer, 200, res);
+    }
+    else {
         return next(
             new ErrorHandler(
                 "Reset Password Token is invalid or has been expired",
@@ -351,18 +422,6 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
             )
         );
     }
-
-    if (req.body.password !== req.body.confirmPassword) {
-        return next(new ErrorHandler("Password does not password", 400));
-    }
-
-    admin.password = req.body.password;
-    admin.resetPasswordToken = undefined;
-    admin.resetPasswordExpire = undefined;
-
-    await admin.save();
-
-    sendToken(admin, 200, res);
 });
 //top Reseller
 exports.topReseller = catchAsyncError(async (req, res, next) => {
@@ -432,6 +491,7 @@ exports.deleteCustomer = catchAsyncError(async (req, res, next) => {
         message: "Customer Deleted Successfully",
     });
 });
+
 //expiry filter
 exports.expiryfilter = catchAsyncError(async (req, res, next) => {
     // const date=Data.now();

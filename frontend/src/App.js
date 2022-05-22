@@ -25,7 +25,7 @@ import EditCustomer from './components/Forms/edit customer/editcustomer';
 import { ResellerProfile } from './components/Reseller Profile/resellerProfile';
 import { CustomerProfile } from './components/Customer Profile/customerProfile';
 import { ForgotPassword } from "./components/Forgot Password/ForgotPassword"
-import { ResetPassword } from "./components/Forgot Password/ResetPassword"
+import ResetPassword from "./components/Forgot Password/ResetPassword"
 function App({ history }) {
   const dispatch = useDispatch();
   const { admin, isAuthenticatedAdmin, loadingAdmin, role } = useSelector(state => state.admin);

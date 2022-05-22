@@ -99,7 +99,7 @@ function Login({ history }) {
                     <input className={Styles.Input} type="password" autoComplete="true" placeholder="Password" name="password" value={val.password} onChange={handleChange} />
 
                     <div className={Styles.links}>
-                        <button type="submit" onClick={handleForgot}>Forgot Password?</button>
+                        <a type="submit" onClick={handleForgot}>Forgot Password?</a>
 
                         <p>Don't have Credentials?</p>
                     </div>

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { forgotPassword } from '../../actions/adminaction';
-import "./ForgotPassword.module.css"
+import "./ForgotPassword.css"
 import { toast } from "react-toastify"
-export const ForgotPassword = () => {
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+export const ForgotPassword = ({ history }) => {
     const dispatch = useDispatch();
     // const alert = useAlert();
 
@@ -21,6 +23,7 @@ export const ForgotPassword = () => {
             email: email
         }
         dispatch(forgotPassword(email1));
+        history.push("/")
     };
 
     useEffect(() => {
@@ -33,13 +36,20 @@ export const ForgotPassword = () => {
             toast.success(message);
         }
     });
-
+    function handleBack() {
+        history.goBack()
+    }
     return (
         <>
             {(
                 <>
                     {/* <MetaData title="Forgot Password" /> */}
                     <div className="forgotPasswordContainer">
+                        <div className='goback'>
+                            <button onClick={handleBack} type='submit' className='btn btn-dark'>
+                                <ArrowBackIcon />
+                            </button>
+                        </div>
                         <div className="forgotPasswordBox">
                             <h2 className="forgotPasswordHeading">Forgot Password</h2>
 
@@ -48,7 +58,7 @@ export const ForgotPassword = () => {
                                 onSubmit={forgotPasswordSubmit}
                             >
                                 <div className="forgotPasswordEmail">
-                                    {/* <MailOutlineIcon /> */}
+                                    <MailOutlineIcon />
                                     <input
                                         type="email"
                                         placeholder="Email"
