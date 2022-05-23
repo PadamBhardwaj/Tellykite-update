@@ -1,14 +1,24 @@
-.Container{
+.Container {
     /* border: 2px solid green; */
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
-    
+
     align-items: center;
 }
 
-.Form{
+.TellyAccountInput {
+    /* border: 2px solid red;  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px auto;
+    width: 100%;
+}
+
+.Form {
     padding-top: 20px;
 
     /* border: 2px solid red; */
@@ -21,27 +31,28 @@
     align-items: flex-start;
 }
 
-.Input{
-    
-   background-color: #6b8fea;
-   border: none;
-   padding: 10px 20px;
+.Input {
+
+    background-color: #6b8fea;
+    border: none;
+    padding: 10px 20px;
     width: 70%;
     border-radius: 25px;
     margin: 5px auto;
 }
-.Input::placeholder{
+
+.Input::placeholder {
     color: #fff;
 }
 
-.Button{
+.Button {
     background-color: #6b8fea;
     border: none;
 
     padding: 17px 30px;
     border-radius: 30px;
     margin-bottom: 20px;
-    color:#fff;
+    color: #fff;
     margin-top: 20px;
     margin-left: 65px;
 }

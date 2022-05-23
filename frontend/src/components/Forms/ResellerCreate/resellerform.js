@@ -54,8 +54,8 @@ export const ResellerCreate = ({ history }) => {
                     <input onChange={handleChange} name="address" value={val.address} placeholder='Address' className={Styles.Input} />
                     <input onChange={handleChange} name="website" value={val.website} placeholder='Website' className={Styles.Input} />
                     <input onChange={handleChange} name="location" value={val.location} placeholder='Location' className={Styles.Input} />
-                    <input onChange={handleChange} name="cellno" value={val.cellno} placeholder='Cell No' className={Styles.Input} />
-                    <input onChange={handleChange} name="telephone" value={val.telephone} placeholder='Telephone Number' className={Styles.Input} />
+                    <input onChange={handleChange} name="cell_No" value={val.cell_No} placeholder='Cell No' className={Styles.Input} />
+                    <input onChange={handleChange} name="telephoneNumber" value={val.telephoneNumber} placeholder='Telephone Number' className={Styles.Input} />
                     <input onChange={handleChange} name="targetCustomer" value={val.targetCustomer} placeholder='targetCustomer' className={Styles.Input} />
                     <button type="submit" onClick={handleClick} className={Styles.Button} >Submit</button>
                 </form>

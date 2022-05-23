@@ -26,31 +26,32 @@ const EditReseller = ({ history }) => {
             }
         }
     }, [loading]);
-    let initialValue = {
-        username: "",
-        email: "",
-        password: "",
-        company: "",
-        address: "",
-        website: "",
-        location: "",
-        cellno: null,
-        telephone: null,
-        id: id
-    }
+    // let initialValue = {
+    //     username: "",
+    //     email: "",
+    //     password: "",
+    //     company: "",
+    //     address: "",
+    //     website: "",
+    //     location: "",
+    //     cellno: null,
+    //     telephone: null,
+    //     id: id
+    // }
+    let initialValue = { ...editReseller, password: "" };
     const [val, setVal] = useState(initialValue)
     function handleClick(e) {
         e.preventDefault();
-        if (val.email == "") {
-            setVal({ ...val, email: editReseller.email })
-            console.log("email same")
-        }
-        if (val.username == "") {
-            setVal({ ...val, username: editReseller.username })
-        }
-        if (val.password == "") {
-            setVal({ ...val, password: editReseller.password })
-        }
+        // if (val.email == "") {
+        //     setVal({ ...val, email: editReseller.email })
+        //     console.log("email same")
+        // }
+        // if (val.username == "") {
+        //     setVal({ ...val, username: editReseller.username })
+        // }
+        // if (val.password == "") {
+        //     setVal({ ...val, password: editReseller.password })
+        // }
         console.log(val)
         dispatch(updateReseller(val));
         // dispatch(getReseller(idObject));

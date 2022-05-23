@@ -54,7 +54,7 @@ const customerSchema = new mongoose.Schema({
     TellyAccounts: [{
         tellyUsername: String,
         tellyPassword: String,
-        tellySerial: Number
+        tellySerial: String
     }],
     resetPasswordToken: String,
     resetPasswordExpire: Date,

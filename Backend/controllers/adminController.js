@@ -60,7 +60,7 @@ exports.getReseller = catchAsyncError(async (req, res, next) => {
 })
 exports.getCustomer = catchAsyncError(async (req, res, next) => {
     console.log(req.body.id)
-    const customer = await Customer.findById(req.body.id);
+    const customer = await Customer.findById(req.body.id).select('+password');
     if (!customer) {
         res.status(400);
     }
@@ -113,9 +113,9 @@ exports.updateProfileReseller = catchAsyncError(async (req, res, next) => {
         company: req.body.company,
         website: req.body.website,
         location: req.body.location,
-        telephoneNumber: req.body.telephone,
+        telephoneNumber: req.body.telephoneNumber,
         address: req.body.address,
-        cell_No: req.body.cellno
+        cell_No: req.body.cell_No,
     };
 
     const reseller = await Reseller.findByIdAndUpdate(req.body.id, newUserData, {
@@ -138,8 +138,10 @@ exports.updateProfileCustomer = catchAsyncError(async (req, res, next) => {
         website: req.body.website,
         address: req.body.address,
         location: req.body.location,
-        telephoneNumber: req.body.telephone,
-        cell_No: req.body.cellno
+        telephoneNumber: req.body.telephoneNumber,
+        cell_No: req.body.cell_No,
+        TellyAccounts: req.body.TellyAccounts
+
     };
 
     const customer = await Customer.findByIdAndUpdate(req.body.id, newUserData, {
@@ -147,9 +149,10 @@ exports.updateProfileCustomer = catchAsyncError(async (req, res, next) => {
         runValidators: true,
         useFindAndModify: false,
     });
-
+    console.log(customer)
     res.status(200).json({
         success: true,
+        // customer
     });
 });
 // login admin

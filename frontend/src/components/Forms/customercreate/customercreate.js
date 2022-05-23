@@ -71,8 +71,8 @@ export const CustomerCreate = ({ history }) => {
         address: "",
         website: "",
         location: "",
-        cellno: null,
-        telephone: null,
+        cell_No: null,
+        telephoneNumber: null,
         plan_type: "",
         Telly_version: "",
         mode: "direct",
@@ -130,8 +130,8 @@ export const CustomerCreate = ({ history }) => {
                     <input onChange={handleChange} name="address" value={val.address} placeholder='Address' className={Styles.Input} />
                     <input onChange={handleChange} name="website" value={val.website} placeholder='Website' className={Styles.Input} />
                     <input onChange={handleChange} name="location" value={val.location} placeholder='Location' className={Styles.Input} />
-                    <input onChange={handleChange} name="cellno" value={val.cellno} placeholder='Cell No' className={Styles.Input} />
-                    <input onChange={handleChange} name="telephone" value={val.telephone} placeholder='Telephone Number' className={Styles.Input} />
+                    <input onChange={handleChange} name="cell_No" value={val.cell_No} placeholder='Cell No' className={Styles.Input} />
+                    <input onChange={handleChange} name="telephoneNumber" value={val.telephoneNumber} placeholder='Telephone Number' className={Styles.Input} />
                     <input onChange={handleChange} name="plan_type" value={val.plan_type} placeholder='Plan Type' className={Styles.Input} />
                     <input onChange={handleChange} name="Telly_version" value={val.Telly_version} placeholder='Telly Version' className={Styles.Input} />
 

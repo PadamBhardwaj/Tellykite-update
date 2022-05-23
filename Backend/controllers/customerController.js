@@ -12,7 +12,7 @@ const sendEmail = require("../utils/sendEmail");
 
 // Register customer
 exports.registercustomer = catchAsyncError(async (req, res, next) => {
-    let { name, email, password, username, Telly_version, company, location, plan_type, address, cellno, telephone, Expiry, purchasedate, reseller_id, TellyAccounts } = req.body;
+    let { name, email, password, username, Telly_version, company, location, plan_type, address, cell_No, telephoneNumber, website, Expiry, purchasedate, reseller_id, TellyAccounts } = req.body;
     Expiry = new Date(Expiry);
     console.log(TellyAccounts)
     try {
@@ -26,6 +26,9 @@ exports.registercustomer = catchAsyncError(async (req, res, next) => {
                 location,
                 plan_type,
                 company,
+                cell_No,
+                telephoneNumber,
+                website,
                 address,
                 mode: "reseller",
                 Expiry,
@@ -48,6 +51,9 @@ exports.registercustomer = catchAsyncError(async (req, res, next) => {
                 plan_type,
                 company,
                 address,
+                cell_No,
+                telephoneNumber,
+                website,
                 mode: "direct",
                 Expiry,
                 TellyAccounts,
