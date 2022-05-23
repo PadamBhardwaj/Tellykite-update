@@ -21,7 +21,7 @@ router.route("/admin/getallresellers").get(isAuthenticatedAdmin, getAllResellers
 router.route("/password/forgot").post(forgotPassword);
 router.route("/admin/total").get(total);
 router.route("/password/reset/:token").put(resetPassword);
-router.route("/admin/deletereseller/:resellerId").delete(isAuthenticatedAdmin, deleteReseller);
-router.route("/admin/deletecustomer/:customerId").delete(isAuthenticatedAdmin, deleteCustomer);
+router.route("/admin/deletereseller/:id").delete(isAuthenticatedAdmin, deleteReseller);
+router.route("/admin/deletecustomer/:id").delete(isAuthenticatedAdmin, deleteCustomer);
 router.route("/admin/expiry").post(expiryfilter);
 module.exports = router;

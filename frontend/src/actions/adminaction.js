@@ -318,6 +318,36 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
         });
     }
 };
+// Delete Reseller
+export const deleteReseller = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: DELETE_RESELLER_REQUEST });
+        // console.log(id)
+        const { data } = await axios.delete(`/api/admin/deletereseller/${id}`);
+
+        dispatch({ type: DELETE_RESELLER_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: DELETE_RESELLER_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+//Delete Customer
+export const deleteCustomer = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: DELETE_CUSTOMER_REQUEST });
+
+        const { data } = await axios.delete(`/api/admin/deletecustomer/${id}`);
+
+        dispatch({ type: DELETE_CUSTOMER_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: DELETE_CUSTOMER_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
 
 // export const deleteReseller=()
 export const clearErrors = () => async (dispatch) => {

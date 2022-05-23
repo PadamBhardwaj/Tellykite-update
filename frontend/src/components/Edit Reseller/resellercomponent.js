@@ -3,7 +3,9 @@ import React from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import EditReseller from "../Forms/edit reseller form/edirresellerfomr";
 import { useHistory } from 'react-router-dom';
-import { getReseller } from "../../actions/adminaction"
+import { deleteReseller, getReseller } from "../../actions/adminaction"
+// import { TOTAL_REQUEST } from '../../constants/adminconstants';
+import { toast } from "react-toastify"
 // import req from 'express/lib/request';
 const ResellerComponent = (props) => {
     const dispatch = useDispatch()
@@ -22,12 +24,20 @@ const ResellerComponent = (props) => {
         history.push("/editresellerform/" + props.id)
 
     }
+    function handleDelete(e) {
+        e.preventDefault();
+        dispatch(deleteReseller(props.id));
+        history.goBack();
+        toast.success("Reseller deleted Sccesfully")
+    }
     return (
         <>
             <div >
                 <h5 >Name: {props.name}</h5>
                 <h5 >Username: {props.username}</h5>
-                <button onClick={handleClick}>Edit</button>
+                <button onClick={handleClick} className='btn btn-outline-primary'>Edit</button>
+                <button onClick={handleDelete} className='btn btn-danger'>Delete</button>
+
             </div>
         </>
     )

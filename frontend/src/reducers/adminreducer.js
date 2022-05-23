@@ -43,7 +43,13 @@ import {
     FORGOT_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAIL,
     RESET_PASSWORD_REQUEST,
-    RESET_PASSWORD_SUCCESS
+    RESET_PASSWORD_SUCCESS,
+    DELETE_CUSTOMER_FAIL,
+    DELETE_CUSTOMER_REQUEST,
+    DELETE_CUSTOMER_SUCCESS,
+    DELETE_RESELLER_FAIL,
+    DELETE_RESELLER_REQUEST,
+    DELETE_RESELLER_SUCCESS
 } from "../constants/adminconstants";
 export const adminReducer = (state = { admin: {} }, action) => {
     switch (action.type) {
@@ -253,6 +259,24 @@ export const editResellerReducer = (state = { editReseller: {} }, action) => {
             return {
                 loading: true
             }
+        case DELETE_RESELLER_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case DELETE_RESELLER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload.success,
+                message: action.payload.message,
+            };
+        case DELETE_RESELLER_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
         default:
             return state
     }
@@ -275,6 +299,24 @@ export const editCustomerReducer = (state = { editCustomer: {} }, action) => {
             return {
                 loading: true
             }
+        case DELETE_CUSTOMER_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case DELETE_CUSTOMER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload.success,
+                message: action.payload.message,
+            };
+        case DELETE_CUSTOMER_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
         default:
             return state
     }

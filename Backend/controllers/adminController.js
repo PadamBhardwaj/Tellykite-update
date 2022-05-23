@@ -10,6 +10,7 @@ const sendToken = require("../utils/jwtToken");
 const bcrypt = require("bcryptjs");
 global.crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
+const { findOneAndUpdate } = require("../Models/adminModel")
 
 // Register Admin <<( !!!For Testing!!! )>>
 exports.registeradmin = catchAsyncError(async (req, res, next) => {
@@ -486,6 +487,13 @@ exports.deleteCustomer = catchAsyncError(async (req, res, next) => {
             new ErrorHandler(`Customer does not exist with Id: ${req.params.id}`, 400)
         );
     }
+    if (customer.mode === "reseller") {
+        const reseller = await Reseller.findOneAndUpdate({ _id: customer.reseller_id },
+            { $inc: { 'customerCount': -1 } }
+            // { 'customerCount': 'customerCount' - 1 }
+        )
+    }
+
     await customer.remove();
 
     res.status(200).json({
