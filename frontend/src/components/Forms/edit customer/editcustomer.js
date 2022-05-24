@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import Styles from "./editcustomer.module.css"
-
+import { toast } from "react-toastify"
 import { useParams } from "react-router-dom"
 import Select from 'react-select'
 import { getCustomer, updateCustomer } from "../../../actions/adminaction"
 const EditCustomer = ({ history }) => {
     const dispatch = useDispatch()
 
-    const { isAuthenticatedAdmin } = useSelector(state => state.admin);
+    const { isAuthenticatedAdmin, error, loadingUpdate } = useSelector(state => state.admin);
     const { editCustomer, loading } = useSelector(state => state.editCustomer)
     // const TellyAccounts = useSelector(state => state.editCustomer.editCustomer.TellyAccounts.map(ele => ele))
     // const { TellyAccounts } = useSelector(state => state.editCustomer.editCustomer)
 
-    const TellyAccount = []
+    // const TellyAccount = []
     // console.log(TellyAccounts)
     // console.log(cust.TellyAccounts)
 
@@ -41,6 +41,9 @@ const EditCustomer = ({ history }) => {
         if (isAuthenticatedAdmin === false) {
             console.log("customer update form returning")
             history.push("/");
+        }
+        if (error) {
+            toast.error(error)
         }
         if (resellers) {
             let options = resellers.map((item) => {
@@ -80,7 +83,7 @@ const EditCustomer = ({ history }) => {
             setNewTellyAccounts(editCustomer.TellyAccounts)
         }
 
-    }, [editCustomer])
+    }, [editCustomer, error])
 
     function handleClick() {
         // e.preventDefault();
@@ -95,8 +98,18 @@ const EditCustomer = ({ history }) => {
         // if (val.password === "") {
         //     setVal({ ...val, password: editCustomer.password })
         // }
-        console.log(val)
-        dispatch(updateCustomer(val))
+        console.log(val);
+        dispatch(updateCustomer(val));
+        // toast.success("Customer edited successfully")
+        if (!loadingUpdate) {
+            if (error) {
+                toast.error(error);
+            }
+            else {
+                toast.success("Customer edited successfully")
+
+            }
+        }
         // dispatch(getCustomer(idObject))
         history.push("/admin");
     }

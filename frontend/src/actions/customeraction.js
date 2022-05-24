@@ -61,7 +61,6 @@ export const createCustomer = (customer) => async (dispatch) => {
         const config = {
             headers: {
                 "content-Type": "application/json",
-
             },
         };
         const { data } = await axios.post("/api/customer/register", customer, config);

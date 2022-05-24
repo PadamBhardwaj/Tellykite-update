@@ -112,7 +112,7 @@ export const adminReducer = (state = { admin: {} }, action) => {
         case UPDATE_CUSTOMER_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                loadingUpdate: false,
                 isUpdated: action.payload,
             };
         case UPDATE_RESELLER_REQUEST:
@@ -120,7 +120,8 @@ export const adminReducer = (state = { admin: {} }, action) => {
 
             return {
                 ...state,
-                error: action.payload
+                // error: action.payload,   
+                loadingUpdate: true
             }
         default:
             return state;

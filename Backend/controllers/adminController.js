@@ -126,6 +126,7 @@ exports.updateProfileReseller = catchAsyncError(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+        reseller
     });
 });
 // update Customer Profile
@@ -507,38 +508,42 @@ exports.deleteCustomer = catchAsyncError(async (req, res, next) => {
 
 //expiry filter
 exports.expiryfilter = catchAsyncError(async (req, res, next) => {
-    // const date=Data.now();
     const { days } = req.body;
     const today = new Date();
-    // console.log(days)
-
-    // console.log(Date())
     const newdate = new Date(today.setDate(today.getDate() + days + 1))
-    // console.log(newdate)
     const expiringCustomers = await Customer.find({
         Expiry: { $lt: newdate }
     })
-
     const resellers = await Reseller.find();
     const resellerList = resellers.map(reseller => {
         return { resellerid: reseller._id, resellerusername: reseller.username }
     })
-
+    console.log(resellerList)
     const t = expiringCustomers.map((customer) => {
-        let p = {}
-        for (let i = 0; i < resellerList.length; i++) {
-            if (resellerList[i].resellerid.toString() === customer.reseller_id.toString()) {
-                p = { ...customer._doc, resellername: resellerList[i].resellerusername }
-            }
+        let p = { ...customer._doc }
+        // for (let i = 0; i < resellerList.length; i++) {
+        //     if (resellerList[i].resellerid === customer.reseller_id) {
+        //         p = { ...customer._doc, resellername: resellerList[i].resellerusername }
+        //         break;
+        //     }
+        // }
+        if (customer.mode !== "direct") {
+            resellerList.map(resel => {
+                // if (resel.resellerid.toString() === customer.reseller_id.toString())
+                if (resel.resellerid.equals(customer.reseller_id)) {
+                    p = { ...customer._doc, resellername: resel.resellerusername }
+                }
+            })
         }
+        if (customer.mode === "direct") {
+            p = { ...customer._doc, mode: "direct" }
+        }
+        // let direct = {}
+        // if (customer.mode === "direct") {
+        //     direct = { ...direct, customer: customer }
+        // }
         return p
     })
-
-
-
-
-
-
     if (!expiringCustomers) {
         return next(
             new ErrorHandler(`No Customer found`)
@@ -549,3 +554,52 @@ exports.expiryfilter = catchAsyncError(async (req, res, next) => {
         t
     })
 })
+
+
+
+
+
+// exports.expiryfilter = catchAsyncError(async (req, res, next) => {
+//     // const date=Data.now();
+//     const { days } = req.body;
+//     const today = new Date();
+//     // console.log(days)
+
+//     // console.log(Date())
+//     const newdate = new Date(today.setDate(today.getDate() + days + 1))
+//     // console.log(newdate)
+//     const expiringCustomers = await Customer.find({
+//         Expiry: { $lt: newdate }
+//     })
+
+//     const resellers = await Reseller.find();
+//     const resellerList = resellers.map(reseller => {
+//         return { resellerid: reseller._id, resellerusername: reseller.username }
+//     })
+
+//     const t = expiringCustomers.map((customer) => {
+//         let p = {}
+//         for (let i = 0; i < resellerList.length; i++) {
+//             if (resellerList[i].resellerid.toString() === customer.reseller_id.toString()) {
+//                 p = { ...customer._doc, resellername: resellerList[i].resellerusername }
+//             }
+//         }
+//         return p
+//     })
+//    
+
+
+
+
+
+
+//     if (!expiringCustomers) {
+//         return next(
+//             new ErrorHandler(`No Customer found`)
+//         );
+//     }
+//     res.status(200).json({
+//         success: true,
+//         t
+//     })
+// })

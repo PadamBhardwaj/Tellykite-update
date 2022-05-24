@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import Styles from "./editreseller.module.css"
 import { useParams } from "react-router-dom"
+import { toast } from "react-toastify"
 import { updateReseller, getReseller } from "../../../actions/adminaction"
 const EditReseller = ({ history }) => {
     const dispatch = useDispatch()
-    const { admin, isAuthenticatedAdmin, errorAdmin, role } = useSelector(state => state.admin);
+    const { error, isAuthenticatedAdmin, loadingUpdate } = useSelector(state => state.admin);
     const { editReseller, loading } = useSelector(state => state.editReseller)
     const { id } = useParams();
     const idObject = {
@@ -25,7 +26,10 @@ const EditReseller = ({ history }) => {
 
             }
         }
-    }, [loading]);
+        if (error) {
+            toast.error(error)
+        }
+    }, [loading, error]);
     // let initialValue = {
     //     username: "",
     //     email: "",
@@ -38,8 +42,9 @@ const EditReseller = ({ history }) => {
     //     telephone: null,
     //     id: id
     // }
-    let initialValue = { ...editReseller, password: "" };
-    const [val, setVal] = useState(initialValue)
+    // let initialValue = { ...editReseller, password: "" };
+    let initialValue = editReseller;
+    const [val, setVal] = useState({ ...initialValue, password: "", id: id })
     function handleClick(e) {
         e.preventDefault();
         // if (val.email == "") {
@@ -54,6 +59,15 @@ const EditReseller = ({ history }) => {
         // }
         console.log(val)
         dispatch(updateReseller(val));
+        if (!loadingUpdate) {
+            if (error) {
+                toast.error(error);
+            }
+            else {
+                toast.success("Reseller edited successfully")
+
+            }
+        }
         // dispatch(getReseller(idObject));
         history.push("/admin");
     }
@@ -80,8 +94,8 @@ const EditReseller = ({ history }) => {
                         <input onChange={handleChange} name="address" defaultValue={editReseller.address} placeholder='Address' className={Styles.Input} />
                         <input onChange={handleChange} name="website" defaultValue={editReseller.website} placeholder='Website' className={Styles.Input} />
                         <input onChange={handleChange} name="location" defaultValue={editReseller.location} placeholder='Location' className={Styles.Input} />
-                        <input onChange={handleChange} name="cellno" defaultValue={editReseller.cell_No} placeholder='Cell No' className={Styles.Input} type='number' />
-                        <input onChange={handleChange} name="telephone" defaultValue={editReseller.telephoneNumber} placeholder='Telephone Number' className={Styles.Input} type='number' />
+                        <input onChange={handleChange} name="cell_No" defaultValue={editReseller.cell_No} placeholder='Cell No' className={Styles.Input} type='number' />
+                        <input onChange={handleChange} name="telephoneNumber" defaultValue={editReseller.telephoneNumber} placeholder='Telephone Number' className={Styles.Input} type='number' />
                         <button type="submit" onClick={handleClick} className={Styles.Button} >Submit</button>
                     </form>
                 </div>

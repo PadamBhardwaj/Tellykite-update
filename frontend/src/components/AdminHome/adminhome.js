@@ -6,8 +6,6 @@ import { Topreseller } from './Topreseller'
 import Styles from "./adminhome.module.css"
 import AdminSidebar from './AdminSidebar'
 import StatBar from './StatBar'
-
-
 export const Admin = ({ history }) => {
     const dispatch = useDispatch()
     const { admin, isAuthenticatedAdmin, errorAdmin }
