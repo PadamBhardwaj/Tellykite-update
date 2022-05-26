@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const app = express();
 const errorMiddleware = require("./middleware/error")
 const cors = require('cors');
-
+//app
 app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
