@@ -14,9 +14,9 @@ const { findOneAndUpdate } = require("../Models/adminModel")
 
 // Register Admin <<( !!!For Testing!!! )>>
 exports.registeradmin = catchAsyncError(async (req, res, next) => {
-    const { name, email, password, username } = req.body;
+    const { email, password, username } = req.body;
     const admin = await Admin.create({
-        name,
+
         email,
         password,
         username
